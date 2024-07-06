@@ -47,7 +47,7 @@ public class BookController {
             mav.addObject("bookReadResponseDto", bookReadResponseDto);
             mav.addObject("bookId", bookId);
 
-            mav.setViewName("book/read");
+            mav.setViewName("read");        // *** -> ("book/read")책 수정하기 할때 저장누르면 read 오류 페이지로 감..
 
         }catch(NoSuchElementException ex) {
             mav.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
@@ -63,7 +63,7 @@ public class BookController {
                 ModelAndView mav = new ModelAndView();
                 BookEditResponseDto bookEditResponseDto = this.bookService.edit(bookId);
             mav.addObject("bookEditResponseDto", bookEditResponseDto);
-            mav.setViewName("book/edit");
+            mav.setViewName("edit");  //book/edit *** -> "edit"으로 고치니깐 됨
             return mav;
         }
 
@@ -92,29 +92,30 @@ public class BookController {
     }
 
     //수정 요청을 처리할 메서드
-    @PostMapping("/book/edit/{bookId}")
+    @PostMapping("/book/edit/{bookId}") // <- 저 경로로 들어오는 POST 요청을 처리함. {bookId}는 URL 경로 변수로, 특정 책의 ID를 나타냄
     public ModelAndView update(
-            @Validated BookEditDto bookEditDto,
-            Errors errors) {
+            @Validated BookEditDto bookEditDto, // -> BookEditDto 객체를 유효성 검사함
+            Errors errors) {    // -> 유효성 검사에서 발생한 오류를 담는 객체
         // 1. 유효성 검사에서 오류가 있는지 확인
-        if (errors.hasErrors()) {
-            // 2. 유효성 검사에서
+        if (errors.hasErrors()) {   //-> 유효성 검사에서 오류가 발생했는지 확인
+            // 2. 유효성 검사에서 발생한 오류 메시지를 문자열로 조합합니다
             String errorMessage =
-                    errors
+                    errors  //유효성 검사에서 발생한 필드 오류 목록을 스트림으로 처리, 각 필드 이름과 오류 메시지를 조합한 문자열을 생성
                             .getFieldErrors()
                             .stream()
                             .map(x -> x.getField() + " : " + x.getDefaultMessage())
                             .collect(Collectors.joining("\n"))
                     ;
-
+            // 3. 오류가 있을 경우 error422 메서드를 호출하여 에러 페이지를 반환합니다
             return this.error422(
                     errorMessage,
                     String.format("/book/edit/%s", bookEditDto.getBookId())
             );
         }
-
+        // 4. 오류가 없을 경우 책 정보를 업데이트합니다.
         this.bookService.update(bookEditDto);
 
+        // 5. 업데이트 후 책 상세 페이지로 리디렉션 합니다
         ModelAndView mav = new ModelAndView();
         mav.setViewName(String.format("redirect:/book/read/%s", bookEditDto.getBookId()));
         return mav;
