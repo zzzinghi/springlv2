@@ -121,4 +121,12 @@ public class BookController {
         return mav;
     }
 
+        //상세 화면에서 삭제 버튼을 눌렀을 때의 정보를 처리하도록 컨트롤러 메소드 작성
+        @PostMapping("/book/delete")
+        public String delete(Integer bookId) throws NoSuchElementException {
+            this.bookService.delete(bookId);
+            return "redirect:/book/list";       //지금 삭제 기능 써도,,, 리스트가 없어서 그런가?? ?삭제 누르면 오류뜸
+        }
+
+
 }
