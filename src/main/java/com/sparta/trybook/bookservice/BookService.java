@@ -1,17 +1,19 @@
 package com.sparta.trybook.bookservice;
 
-import com.sparta.trybook.dto.BookEditDto;
-import com.sparta.trybook.dto.BookEditResponseDto;
-import com.sparta.trybook.dto.BookReadResponseDto;
+import com.sparta.trybook.dto.*;
 import com.sparta.trybook.entity.BookRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.sparta.trybook.dto.BookCreateDto;
 import com.sparta.trybook.entity.TryBook;
 import com.sparta.trybook.entity.BookRepository;
 
 import java.awt.print.Book;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -52,6 +54,30 @@ public class BookService {
         this.bookRepository.delete(book);
     }
 
+    public List<BookListResponseDto> bookList(String title, Integer page) {
+        final int pageSize = 3;
+        List<TryBook> books;
+
+        if (page == null) {
+            page = 0;
+        } else {
+            page -= 1;
+        }
+        if (title == null) {
+            Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "insertDateTime");  //Direction -> 도메인 임포트함. 맞는지 모르겠음
+            books = this.bookRepository.findAll(pageable).toList();
+        }
+        else {
+            Pageable pageable = PageRequest.of(page, pageSize);
+            Sort sort = Sort.by(Sort.Order.desc("insertDateTime")); //Order -> 임포트 order.in.Sort(of.arg.springframework.data.domain) 했는데 무슨뜻이지
+            pageable.getSort().and(sort);
+            books = this.bookRepository.findByTitleContains(title, pageable);
+        }
+        return books.stream().map(book ->
+                new BookListResponseDto(book.getBookId(), book.getTitle())
+        ).collect(Collectors.toList());
+
+    }
 
 }
 

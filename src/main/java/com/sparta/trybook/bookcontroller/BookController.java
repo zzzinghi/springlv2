@@ -1,10 +1,7 @@
 package com.sparta.trybook.bookcontroller;
 
 import com.sparta.trybook.bookservice.BookService;
-import com.sparta.trybook.dto.BookCreateDto;
-import com.sparta.trybook.dto.BookEditDto;
-import com.sparta.trybook.dto.BookEditResponseDto;
-import com.sparta.trybook.dto.BookReadResponseDto;
+import com.sparta.trybook.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -79,7 +77,7 @@ public class BookController {
 //
     @ExceptionHandler(NoSuchElementException.class)
             public ModelAndView noSuchElementExceptionHandler(NoSuchElementException ex) {
-              return this.error422("책 정보가 없습니다.", "/book/list");
+              return this.error422("책 정보가 없습니다.", "/book/list"); //"/book/list"
     }
 
     private ModelAndView error422(String message, String location) {
@@ -125,8 +123,19 @@ public class BookController {
         @PostMapping("/book/delete")
         public String delete(Integer bookId) throws NoSuchElementException {
             this.bookService.delete(bookId);
-            return "redirect:/book/list";       //지금 삭제 기능 써도,,, 리스트가 없어서 그런가?? ?삭제 누르면 오류뜸
+            return "redirect:/book/delete";       //지금 삭제 기능 써도,,, 리스트가 없어서 그런가?? ?삭제 누르면 오류뜸
         }
+
+        @GetMapping(value= {"/book/list", "/book"})
+        public ModelAndView bookList(String title, Integer page, ModelAndView mav){
+            mav.setViewName("list");
+
+            List<BookListResponseDto> books = this.bookService.bookList(title, page);
+            mav.addObject("books", books);
+            return mav;
+        }
+
+
 
 
 }
