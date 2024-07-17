@@ -3,6 +3,8 @@ package hello.springlv2se.dto;
 
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 public class RequestBookDto {
 
