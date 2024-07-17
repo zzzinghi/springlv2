@@ -10,5 +10,13 @@ public class RequestBookDto {
     private String author;
     private String language;
     private String publisher;
-    private String registration_date;
+    private LocalDate registrationDate;
+
+    public RequestBookDto(String title, String author, String language, String publisher, LocalDate registrationDate) {
+        this.title = title;
+        this.author = author;
+        this.language = language;
+        this.publisher = publisher;
+        this.registrationDate = registrationDate;
+    }
 }

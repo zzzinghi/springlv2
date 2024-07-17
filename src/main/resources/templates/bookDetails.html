@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Book Details</h1>
+    <table class="table mt-4">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td th:text="${book.id}"></td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td th:text="${book.title}"></td>
+        </tr>
+        <tr>
+            <th>Author</th>
+            <td th:text="${book.author}"></td>
+        </tr>
+        <tr>
+            <th>Language</th>
+            <td th:text="${book.language}"></td>
+        </tr>
+        <tr>
+            <th>Publisher</th>
+            <td th:text="${book.publisher}"></td>
+        </tr>
+        <tr>
+            <th>Registration Date</th>
+            <td th:text="${book.formattedRegistrationDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/books">Back to Book List</a>
+</div>
+</body>
+</html>
