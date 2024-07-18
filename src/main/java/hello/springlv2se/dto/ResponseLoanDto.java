@@ -26,4 +26,4 @@ public class ResponseLoanDto {
         this.status = loan.getStatus();
     }
 }
-}
+

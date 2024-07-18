@@ -6,10 +6,7 @@ import hello.springlv2se.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,4 +21,11 @@ public class RestMemberController {
         ResponseMemberDto responseMemberDto = memberService.addMember(requestMemberDto);
         return new ResponseEntity<>(responseMemberDto, HttpStatus.OK);
     }
+    //회원 조회
+    @GetMapping("/member/{id}")
+    public ResponseEntity<ResponseMemberDto> getMemberById(@PathVariable int id) {
+        ResponseMemberDto responseMemberDto = memberService.getMember(id);
+        return new ResponseEntity<>(responseMemberDto, HttpStatus.OK);
+    }
+
 }

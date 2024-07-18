@@ -7,6 +7,7 @@ import hello.springlv2se.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -19,4 +20,13 @@ public class MemberService {
         Member saveMember = memberRepository.save(member);
         return new ResponseMemberDto(saveMember);
     }
+
+    //선택한 회원 데이터 조회
+    public ResponseMemberDto getMember(int id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 도서입니다."));
+        ResponseMemberDto responseMemberDto = new ResponseMemberDto(member);
+        return responseMemberDto;
+    }
+
 }
