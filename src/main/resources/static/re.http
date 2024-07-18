@@ -1,0 +1,11 @@
+### GET request to example server
+###
+POST http://127.0.0.1:8080/api/book
+Content-Type: application/json
+
+{ "title": "세영이는 파충류",
+  "author": "이승현",
+  "language": "한국어",
+  "publisher": "스파르타",
+  "registrationDate": "2020-02-22"
+}

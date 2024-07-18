@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 @Getter
 public class RequestBookDto {
-
     private String title;
     private String author;
     private String language;

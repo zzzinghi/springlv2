@@ -29,14 +29,20 @@ public class ViewBookController {
         return "newBook";
     }
 
-
     //책 전체 목록 조회
     @GetMapping("/books")
     public String viewBooks(Model model) {
         //전체 도서 목록 조회
-        List<Book> books = bookService.getBook();       //조회된 목록을 모델에 추가, books.html 페이지를 반환
-        model.addAttribute("books", books);
-
+//        List<Book> books = bookService.getBook();       //조회된 목록을 모델에 추가, books.html 페이지를 반환
+//        model.addAttribute("books", books);
         return "books";
     }
+
+    //도서 정보 조회?
+    //    @GetMapping("/bookdetails/{id}")
+    //    public String bookdetails(Model model, @ModelAttribute Long id) {
+    //        ResponseBookDto responseBookDto = bookService.get(id);
+    //        model.addAttribute("book", responseBookDto);
+    //        return "bookdetails";
+    //    }
 }

@@ -3,7 +3,6 @@ package hello.springlv2se.entity;
 import hello.springlv2se.dto.RequestBookDto;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
