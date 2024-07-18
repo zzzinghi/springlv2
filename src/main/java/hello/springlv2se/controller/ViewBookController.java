@@ -1,15 +1,11 @@
 package hello.springlv2se.controller;
 
-import hello.springlv2se.dto.ResponseBookDto;
-import hello.springlv2se.entity.Book;
 import hello.springlv2se.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,12 +33,4 @@ public class ViewBookController {
 //        model.addAttribute("books", books);
         return "books";
     }
-
-    //도서 정보 조회?
-    //    @GetMapping("/bookdetails/{id}")
-    //    public String bookdetails(Model model, @ModelAttribute Long id) {
-    //        ResponseBookDto responseBookDto = bookService.get(id);
-    //        model.addAttribute("book", responseBookDto);
-    //        return "bookdetails";
-    //    }
 }
