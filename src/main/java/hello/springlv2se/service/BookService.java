@@ -48,5 +48,9 @@ public class BookService {
     }
 
     //도서 삭제
-
+    public void delete(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 도서입니다."));
+        bookRepository.delete(book);
+    }
 }

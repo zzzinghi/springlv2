@@ -11,3 +11,16 @@ Content-Type: application/json
     "publisher": "스파르타",
     "registrationDate": "2020-02-22"
   }
+###
+GET http://127.0.0.1:8080/api/member
+###
+POST http://127.0.0.1:8080/api/member
+Content-Type: application/json
+
+{
+  "name": "김세영",
+  "gender": "여성",
+  "uniquenumber": "999999",
+  "phonenumber": "01012341234",
+  "address": "포항시 남구"
+}

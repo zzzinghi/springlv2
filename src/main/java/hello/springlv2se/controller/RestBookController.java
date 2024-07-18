@@ -41,5 +41,10 @@ public class RestBookController {
         //http응답을 생성하는 방법 중 하나, 클라이언트에게 http 200 ok 상태 코드를 반환하면서 응답 본문에 responseBookDto 객체를 포함하는 것을 의미
     }
     // 4. 도서 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBook(@PathVariable Long id) {
+        bookService.delete(id);
+        return ResponseEntity.noContent().build();  //본문 생략하고, 클라이언트에게 요청의 성공 여부만을 전달함
+    }
 
 }
