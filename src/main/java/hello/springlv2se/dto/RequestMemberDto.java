@@ -1,7 +1,6 @@
 package hello.springlv2se.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class RequestMemberDto {
